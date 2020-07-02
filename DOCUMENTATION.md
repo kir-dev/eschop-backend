@@ -1,0 +1,14 @@
+## Models
+- Good
+  - name (presence)
+  - price (>=0)
+  - quantity (>0)
+  - description 
+- Purchase
+  - good (present in db)
+  - quantity  (0> && <= Good.quantitiy)
+  - buyer (present in db)
+- User
+  - name 
+  - email 
+  - roomnumber
