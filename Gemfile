@@ -38,6 +38,8 @@ group :development do
 
   gem 'faker', '~> 2.13'
   gem 'annotate'
+  gem 'oauth2'
+  gem 'faraday'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
