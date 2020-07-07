@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
 class AuthenticationController < ApplicationController
-  require 'oauth2'
-
   def login
-    if params[:user_id] && user = User.find(params[:user_id])
+    jwt_token = params[:jwt_token]
+    if jwt_token.nil?
+      redirect_to client.auth_code.authorize_url
+      return
+    end
+
+    decoded_token = JWT.decode jwt_token, ENV['SECRET'], true, { algorithm: 'HS256' }
+    user_id = decoded_token.first['user_id']
+    user = User.find(user_id)
+    if user
       render plain: user.name
     else
       redirect_to client.auth_code.authorize_url
@@ -12,13 +19,16 @@ class AuthenticationController < ApplicationController
   end
 
   def callback
-    token     = client.auth_code.get_token(params[:code], redirect_uri: 'http://localhost:8080/oauth2/callback')
-    response  = Faraday.get("https://auth.sch.bme.hu/api/profile?access_token=#{token.token}")
-    user_data = JSON.parse(response.body)
-    user      = User.find_by auth_sch_id: user_data['internal_id']
+    auth_token = client.auth_code.get_token(params[:code], redirect_uri: 'http://localhost:8080/oauth2/callback')
+    response   = Faraday.get("https://auth.sch.bme.hu/api/profile?access_token=#{auth_token.token}")
+    user_data  = JSON.parse(response.body)
+    user       = User.find_by auth_sch_id: user_data['internal_id']
     user      ||= User.create!(user_parameters(user_data))
 
-    render plain: user.id.to_s
+    payload = { user_id: user.id }
+    jwt_token = JWT.encode payload, ENV["SECRET"], 'HS256'
+
+    render plain: jwt_token
   end
 
   private
