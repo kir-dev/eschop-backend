@@ -1,6 +1,5 @@
 class GoodsController < ApplicationController
   before_action :set_good, only: %i[show update destroy]
-  before_action :authencticate_user
   # GET /goods
   def index
     @goods = Good.all
@@ -48,13 +47,5 @@ class GoodsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def good_params
     params.require(:good).permit(:name, :price, :quantity, :description)
-  end
-
-  def authencticate_user
-    redirect_to '/authentication/login' if params[:user_id].nil?
-    user = User.find(params[:user_id])
-    unless user
-      redirect_to "authentication#login"
-    end
   end
 end

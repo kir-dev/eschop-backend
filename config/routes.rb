@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   resources :users
   resources :goods
 
-  get 'authentication/callback'
-  get '/login', to: 'authentication#login'
+  get '/callback', to: 'application#callback'
 
   root 'goods#index'
 end

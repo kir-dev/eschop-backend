@@ -16,7 +16,7 @@
 ## Auth 
 
 - get access_code for clint(e-schop) scope
-  - user gets redirected to autsch
+  - user gets redirected to au``tsch
   - after login the **code** gets sent to the callbeck address (specifed on AuthSch)
 - get access token 
  - post the code to authsch with client-id and client-secret 
@@ -25,3 +25,16 @@
  - get the data with the acces token
  - if the access token expiered we can request another with the refresh_token
  
+ ## Authentication service
+
+- callback 
+ - input: authcode from AuthSCH
+ - output: JWT token
+ 
+- check token 
+ - input: jwt token
+ - output: boolean 
+ 
+ - login 
+  - jwt_token
+  - user
