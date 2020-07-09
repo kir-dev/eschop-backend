@@ -1,0 +1,18 @@
+
+hu:
+  activerecord:
+    models:
+      good: Termék #g
+      user: Felhasználó  #g
+
+    attributes:
+      good:
+        description: Leírás  #g
+        name: Név  #g
+        price: Ár  #g
+        quantity: Mennyiség  #g
+
+      user:
+        email: Email  #g
+        name: Név  #g
+        room_number: Szoba szám  #g

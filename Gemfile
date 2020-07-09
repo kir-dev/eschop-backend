@@ -46,6 +46,7 @@ group :development do
 
   gem 'faker', '~> 2.13'
   gem 'annotate'
+  gem 'i18n_generators', '~> 2.2', '>= 2.2.2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -19,7 +19,7 @@ class GoodsController < ApplicationController
     if @good.save
       render json: @good, status: :created, location: @good
     else
-      render json: @good.errors, status: :unprocessable_entity
+      render json: @good.errors.full_messages, status: :unprocessable_entity
     end
   end
 
