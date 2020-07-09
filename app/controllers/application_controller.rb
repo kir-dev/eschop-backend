@@ -17,7 +17,8 @@ class ApplicationController < ActionController::API
     raise CouldNotFindUser if @user.blank?
 
   rescue NoTokenProvided, CouldNotFindUser
-    redirect_to Authentication.client.auth_code.authorize_url
+    head(:unauthorized)
+    # redirect_to Authentication.client.auth_code.authorize_url
   end
 
   def current_user

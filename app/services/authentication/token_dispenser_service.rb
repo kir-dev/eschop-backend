@@ -51,14 +51,14 @@ class Authentication::TokenDispenserService
   end
 
   def generate_jwt_token
-    payload    = {user_id: user.id}
+    payload    = { user_id: user.id }
     @jwt_token = JWT.encode payload, ENV['SECRET'], 'HS256'
   end
 
   def user_parameters(user_data)
   {"name":        user_data['displayName'],
    "email":       user_data['mail'],
-   "auth_sch_id": user_data['internai_id']}
+   "auth_sch_id": user_data['internal_id'] }
   end
 end
 

@@ -38,3 +38,9 @@
  - login 
   - jwt_token
   - user
+ 
+ - remove authsch redirect, give error 
+ 
+ c5901892-6161-098d-922f-2d1c050e6fd9
+ 
+ User id: 34,
