@@ -1,0 +1,17 @@
+en:
+  activerecord:
+    models:
+      good: Good  #g
+      user: User  #g
+
+    attributes:
+      good:
+        description: Description  #g
+        name: Name  #g
+        price: Price  #g
+        quantity: Quantity  #g
+
+      user:
+        email: Email  #g
+        name: Name  #g
+        room_number: Room number  #g
