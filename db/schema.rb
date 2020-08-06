@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_115251) do
+ActiveRecord::Schema.define(version: 2020_07_09_130238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,13 +25,13 @@ ActiveRecord::Schema.define(version: 2020_07_09_115251) do
   end
 
   create_table "purchases", force: :cascade do |t|
-    t.bigint "buyer_id"
-    t.bigint "good_id"
-    t.integer "quantity", null: false
+    t.integer "quantity"
+    t.bigint "user_id", null: false
+    t.bigint "good_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["buyer_id"], name: "index_purchases_on_buyer_id"
     t.index ["good_id"], name: "index_purchases_on_good_id"
+    t.index ["user_id"], name: "index_purchases_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,4 +43,6 @@ ActiveRecord::Schema.define(version: 2020_07_09_115251) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "purchases", "goods"
+  add_foreign_key "purchases", "users"
 end

@@ -1,0 +1,46 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:9.6
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_USER=eschop
+      - POSTGRES_PASSWORD=eschop
+
+    volumes:
+      - database_folder:/var/lib/postgresql/data/pgdata
+    restart: always
+    networks:
+      - eschop_network
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    environment:
+      - RAILS_SERVE_STATIC_FILES=true
+#      - RAILS_ENV=production
+      - DATABASE_PASSWORD=eschop
+      - DATABASE_USER=eschop
+      - DATABASE_NAME=eschop
+      - DATABASE_HOST=postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - public_folder:/eschop/public
+    ports:
+      - "3000:3000"
+    networks:
+      - eschop_network
+    depends_on:
+      - postgres
+networks:
+  eschop_network:
+
+# Add your volumes
+volumes:
+  public_folder:
+    external:
+      name: eschop_public
+  database_folder:
+    external:
+      name: eschop_database
